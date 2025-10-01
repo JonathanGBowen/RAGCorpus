@@ -1,0 +1,51 @@
+# RAG Corpus - Complete Requirements
+# All dependencies needed for full functionality
+
+# Core RAG Framework
+llama-index>=0.10.0
+llama-index-vector-stores-chroma>=0.1.0
+llama-index-embeddings-huggingface>=0.1.0
+llama-index-llms-gemini>=0.1.0
+llama-index-llms-ollama>=0.1.0
+llama-index-retrievers-bm25>=0.1.0
+
+# Agent Framework
+langchain>=0.1.0
+langchain-google-genai>=1.0.0
+langgraph>=0.0.40
+langchain-community>=0.0.30
+
+# Vector Database
+chromadb>=0.4.22
+
+# OCR and Image Processing (for scanned PDFs)
+opencv-python>=4.9.0
+pytesseract>=0.3.10
+pypdfium2>=4.26.0
+pdf2image>=1.17.0
+Pillow>=10.2.0
+
+# Translation (for German texts)
+transformers>=4.37.0
+torch>=2.1.0
+sentencepiece>=0.1.99
+sacremoses>=0.1.1
+
+# Obsidian Canvas Support
+pyjsoncanvas>=0.2.0
+
+# User Interface
+chainlit>=1.0.0
+
+# External Integrations
+pyzotero>=1.5.18              # Zotero reference manager
+paperscraper>=0.2.9           # Paper discovery
+requests>=2.31.0              # HTTP requests
+tavily-python>=0.3.0          # Web search
+
+# Core Utilities
+python-dotenv>=1.0.0          # Environment variables
+pydantic>=2.6.0               # Data validation
+pydantic-settings>=2.1.0      # Settings management
+loguru>=0.7.2                 # Logging
+sqlalchemy>=2.0.0             # Database ORM

@@ -16,8 +16,9 @@
 ### Prerequisites
 - Python 3.10 or higher
 - Tesseract OCR
-- (Optional) PostgreSQL for chat history
 - (Optional) Ollama for local LLM
+
+**Note:** SQLite is used by default for chat history - no database installation needed!
 
 ### Step 1: Install Dependencies
 
@@ -96,8 +97,13 @@ ZOTERO_API_KEY=your_api_key
 # Web search (optional)
 TAVILY_API_KEY=your_tavily_key
 
-# Database for chat history (optional)
-DATABASE_URL=postgresql://user:pass@localhost/ragcorpus
+# Database for chat history
+# SQLite (default - already configured, no action needed!)
+CHAINLIT_DATABASE_URL=sqlite:///data/chainlit.db
+
+# PostgreSQL (optional - for production/multi-user)
+# CHAINLIT_DATABASE_URL=postgresql://user:pass@localhost/ragcorpus
+# See docs/DATABASE_SETUP.md for PostgreSQL setup
 ```
 
 ### 3. Adjust Performance Settings

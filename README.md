@@ -82,11 +82,9 @@ cp .env.example .env
 # Edit .env with your API keys and settings
 ```
 
-6. **Set up PostgreSQL** (optional, for chat history):
-```bash
-# Install PostgreSQL and create database
-createdb ragcorpus
-```
+6. **Database for chat history**:
+   - **SQLite** (default): Already configured - no setup needed! ✅
+   - **PostgreSQL** (optional): See [docs/DATABASE_SETUP.md](docs/DATABASE_SETUP.md) for migration
 
 ## Quick Start
 

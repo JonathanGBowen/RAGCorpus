@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(mkdir:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(for dir in src src/agent src/config src/ingestion src/integrations src/retrieval src/storage src/ui)",
+      "Bash(do test:*)",
+      "Bash(echo \"$dir: ✓\")",
+      "Bash(echo:*)",
+      "Bash(done)",
+      "Bash(awk:*)",
+      "Bash(python -m pytest --co -q)"
     ],
     "deny": [],
     "ask": []

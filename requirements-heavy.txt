@@ -1,0 +1,22 @@
+# Heavy/optional dependencies - install only if needed
+# Install with: pip install -r requirements-heavy.txt
+
+# Translation support (LARGE - ~4GB total)
+transformers==4.41.2
+torch==2.3.1
+sentencepiece==0.2.0
+sacremoses==0.1.1
+
+# OCR for scanned PDFs
+opencv-python==4.10.0.82
+pytesseract==0.3.10
+pypdfium2==4.30.0
+pdf2image==1.17.0
+Pillow==10.3.0
+
+# Google Gemini support
+llama-index-llms-gemini==0.1.11
+langchain-google-genai==1.0.7
+
+# External integrations
+pyzotero==1.5.18

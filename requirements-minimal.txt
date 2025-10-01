@@ -1,0 +1,42 @@
+# RAG Corpus - Minimal Requirements
+# Core functionality only (basic PDF search, no OCR/translation/integrations)
+
+# Essential RAG Framework
+llama-index>=0.10.0
+llama-index-vector-stores-chroma>=0.1.0
+llama-index-embeddings-huggingface>=0.1.0
+llama-index-llms-gemini>=0.1.0
+
+# Agent Framework (required for chat)
+langchain>=0.1.0
+langchain-google-genai>=1.0.0
+langgraph>=0.0.40
+
+# Vector Database (required)
+chromadb>=0.4.22
+
+# User Interface (required)
+chainlit>=1.0.0
+
+# Core Utilities (required)
+python-dotenv>=1.0.0
+pydantic>=2.6.0
+pydantic-settings>=2.1.0
+loguru>=0.7.2
+sqlalchemy>=2.0.0
+requests>=2.31.0
+
+# Note: This minimal install supports:
+# - Clean PDF ingestion (not scanned)
+# - English documents only
+# - Basic querying
+# - Chat interface
+#
+# Missing features:
+# - OCR for scanned PDFs
+# - German translation
+# - Obsidian Canvas
+# - Zotero integration
+# - Paper auto-download
+# - BM25 retrieval
+# - Web search
