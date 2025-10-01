@@ -1,0 +1,83 @@
+[project]
+name = "rag-corpus"
+version = "0.1.0"
+description = "ADHD-friendly RAG system for academic research with Gestalt psychology and John Dewey corpus"
+requires-python = ">=3.10"
+dependencies = [
+    # Core RAG stack
+    "llama-index>=0.10.0",
+    "llama-index-vector-stores-chroma>=0.1.0",
+    "llama-index-embeddings-huggingface>=0.1.0",
+    "llama-index-llms-gemini>=0.1.0",
+    "llama-index-llms-ollama>=0.1.0",
+    "llama-index-retrievers-bm25>=0.1.0",
+
+    # LangChain and LangGraph
+    "langchain>=0.1.0",
+    "langchain-google-genai>=1.0.0",
+    "langgraph>=0.0.40",
+    "langchain-community>=0.0.30",
+
+    # Vector database
+    "chromadb>=0.4.22",
+
+    # OCR and image processing
+    "opencv-python>=4.9.0",
+    "pytesseract>=0.3.10",
+    "pypdfium2>=4.26.0",
+    "pdf2image>=1.17.0",
+    "Pillow>=10.2.0",
+
+    # Translation
+    "transformers>=4.37.0",
+    "torch>=2.1.0",
+    "sentencepiece>=0.1.99",
+    "sacremoses>=0.1.1",
+
+    # Obsidian Canvas parsing
+    "pyjsoncanvas>=0.2.0",
+
+    # UI Framework
+    "chainlit>=1.0.0",
+
+    # External integrations
+    "pyzotero>=1.5.18",
+    "paperscraper>=0.2.9",
+    "requests>=2.31.0",
+
+    # Web search
+    "tavily-python>=0.3.0",
+
+    # Utilities
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.1.0",
+    "loguru>=0.7.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.1.0",
+    "ruff>=0.2.0",
+    "mypy>=1.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
