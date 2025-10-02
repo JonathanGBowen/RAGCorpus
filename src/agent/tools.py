@@ -93,23 +93,27 @@ def create_web_search_tool(
         logger.warning("Tavily API key not configured, web search tool unavailable")
         return None
 
-    logger.info("Creating web search tool with Tavily")
+    try:
+        logger.info("Creating web search tool with Tavily")
 
-    search = TavilySearchResults(
-        max_results=max_results,
-        api_key=settings.tavily_api_key
-    )
-
-    # Wrap with custom description
-    return Tool(
-        name="WebSearch",
-        func=search.run,
-        description=(
-            "Search the web for current information, recent events, or topics "
-            "not in the research library. Use this when the knowledge base doesn't "
-            "have the information needed. Input should be a search query."
+        search = TavilySearchResults(
+            max_results=max_results,
+            api_key=settings.tavily_api_key
         )
-    )
+
+        # Wrap with custom description
+        return Tool(
+            name="WebSearch",
+            func=search.run,
+            description=(
+                "Search the web for current information, recent events, or topics "
+                "not in the research library. Use this when the knowledge base doesn't "
+                "have the information needed. Input should be a search query."
+            )
+        )
+    except Exception as e:
+        logger.warning(f"Failed to create web search tool: {e}")
+        return None
 
 
 def create_calculator_tool() -> Tool:

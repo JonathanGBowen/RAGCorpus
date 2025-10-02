@@ -124,6 +124,13 @@ class ProjectManager:
         # Delete vector store data
         vector_store = VectorStoreManager(project_name)
         vector_store.delete()
+        
+        # Explicitly release resources (important for Windows file locking)
+        del vector_store
+        import gc
+        gc.collect()
+        import time
+        time.sleep(0.3)  # Brief delay for Windows to release file handles
 
         # Delete project directory
         import shutil

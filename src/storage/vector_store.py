@@ -91,10 +91,22 @@ class VectorStoreManager:
         if self._storage_context is None:
             vector_store = self.get_or_create_collection()
 
-            self._storage_context = StorageContext.from_defaults(
-                vector_store=vector_store,
-                persist_dir=str(self.storage_dir)
-            )
+            # Check if storage directory has existing data
+            docstore_path = self.storage_dir / "docstore.json"
+            
+            if docstore_path.exists():
+                # Load existing storage context
+                self._storage_context = StorageContext.from_defaults(
+                    vector_store=vector_store,
+                    persist_dir=str(self.storage_dir)
+                )
+            else:
+                # Create fresh storage context
+                self._storage_context = StorageContext.from_defaults(
+                    vector_store=vector_store
+                )
+                # Set the persist dir for future saves
+                self._storage_context.persist(persist_dir=str(self.storage_dir))
 
         return self._storage_context
 

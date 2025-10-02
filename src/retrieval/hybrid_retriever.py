@@ -74,19 +74,29 @@ class HybridRetriever:
         self.nodes = self._get_all_nodes()
 
         # Create sparse retriever (BM25)
-        self.bm25_retriever = BM25Retriever.from_defaults(
-            nodes=self.nodes,
-            similarity_top_k=bm25_top_k
-        )
+        # Note: BM25Retriever needs nodes to work with
+        if self.nodes and len(self.nodes) > 0:
+            self.bm25_retriever = BM25Retriever.from_defaults(
+                nodes=self.nodes,
+                similarity_top_k=bm25_top_k
+            )
+        else:
+            # If no nodes yet, BM25 cannot be initialized
+            logger.warning("No nodes available for BM25 retriever, using vector-only search")
+            self.bm25_retriever = None
 
         # Create fusion retriever
-        self.fusion_retriever = QueryFusionRetriever(
-            retrievers=[self.vector_retriever, self.bm25_retriever],
-            similarity_top_k=fusion_top_k,
-            num_queries=1,  # Use single query for both retrievers
-            mode=mode,
-            use_async=False
-        )
+        if self.bm25_retriever:
+            self.fusion_retriever = QueryFusionRetriever(
+                retrievers=[self.vector_retriever, self.bm25_retriever],
+                similarity_top_k=fusion_top_k,
+                num_queries=1,  # Use single query for both retrievers
+                mode=mode,
+                use_async=False
+            )
+        else:
+            # Fall back to vector-only retrieval
+            self.fusion_retriever = None
 
         logger.success("Hybrid retriever initialized")
 
@@ -102,8 +112,13 @@ class HybridRetriever:
         """
         logger.debug(f"Hybrid retrieval for query: {query[:100]}...")
 
-        # Use fusion retriever
-        nodes = self.fusion_retriever.retrieve(query)
+        # Use fusion retriever if available, otherwise fall back to vector-only
+        if self.fusion_retriever:
+            nodes = self.fusion_retriever.retrieve(query)
+        else:
+            # Fall back to vector retriever only
+            logger.warning("Using vector-only retrieval (BM25 unavailable)")
+            nodes = self.vector_retriever.retrieve(query)
 
         logger.debug(f"Retrieved {len(nodes)} nodes from hybrid search")
 

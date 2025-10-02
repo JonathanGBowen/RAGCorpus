@@ -59,8 +59,13 @@ def create_llm(
 
         model = model or settings.gemini_model
 
-        # Use the new GoogleGenAI class
-        llm = GoogleGenAI(model_name=model, api_key=settings.google_api_key)
+        # Use LangChain's ChatGoogleGenerativeAI for agent compatibility
+        # (LangGraph's create_react_agent needs a LangChain-compatible LLM)
+        llm = ChatGoogleGenerativeAI(
+            model=model,
+            google_api_key=settings.google_api_key,
+            temperature=temperature
+        )
 
         logger.success(f"Google GenAI LLM initialized: {model}")
         return llm
