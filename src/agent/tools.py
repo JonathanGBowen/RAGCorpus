@@ -11,13 +11,13 @@ from langchain.tools import Tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 from loguru import logger
 
-from llama_index.core import QueryEngine
+from llama_index.core.query_engine import BaseQueryEngine
 
 from ..config import get_settings
 
 
 def create_knowledge_base_tool(
-    query_engine: QueryEngine,
+    query_engine: BaseQueryEngine,
     name: str = "KnowledgeBaseSearch",
     description: Optional[str] = None
 ) -> Tool:
@@ -234,7 +234,7 @@ def create_file_reader_tool() -> Tool:
     )
 
 
-def create_metadata_search_tool(query_engine: QueryEngine) -> Tool:
+def create_metadata_search_tool(query_engine: BaseQueryEngine) -> Tool:
     """
     Create a tool to search by metadata filters.
 

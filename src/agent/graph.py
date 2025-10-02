@@ -8,15 +8,18 @@ with memory, tool use, and multi-step reasoning.
 from typing import List, Optional, Any
 from pathlib import Path
 
-from langgraph.prebuilt import create_react_agent
-from langgraph.checkpoint.memory import MemorySaver
+from langchain_core.tools import BaseTool
 from langchain.tools import Tool
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_community.chat_models import ChatOllama
+from langgraph.prebuilt import ToolNode, create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
 from loguru import logger
 
-from llama_index.core import VectorStoreIndex
+from llama_index.llms.google_genai import GoogleGenAI
+from llama_index.llms.ollama import Ollama
 from llama_index.core.query_engine import BaseQueryEngine
+from llama_index.core.indices.vector_store import VectorStoreIndex
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_community.chat_models import ChatOllama
 
 from .tools import (
     create_knowledge_base_tool,
@@ -56,14 +59,10 @@ def create_llm(
 
         model = model or settings.gemini_model
 
-        llm = ChatGoogleGenerativeAI(
-            model=model,
-            google_api_key=settings.google_api_key,
-            temperature=temperature,
-            convert_system_message_to_human=True
-        )
+        # Use the new GoogleGenAI class
+        llm = GoogleGenAI(model_name=model, api_key=settings.google_api_key)
 
-        logger.success(f"Gemini LLM initialized: {model}")
+        logger.success(f"Google GenAI LLM initialized: {model}")
         return llm
 
     elif provider == "ollama":

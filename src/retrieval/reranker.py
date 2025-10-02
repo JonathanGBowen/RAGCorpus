@@ -9,7 +9,8 @@ from typing import List, Optional
 
 from llama_index.core.postprocessor import SentenceTransformerRerank
 from llama_index.core.schema import NodeWithScore, QueryBundle
-from llama_index.core import QueryEngine, VectorStoreIndex
+from llama_index.core.query_engine import BaseQueryEngine
+from llama_index.core.indices.vector_store import VectorStoreIndex
 from loguru import logger
 
 from ..config import get_settings
@@ -173,7 +174,7 @@ def create_query_engine_with_reranking(
     index: VectorStoreIndex,
     retriever,
     top_n: Optional[int] = None
-) -> QueryEngine:
+) -> BaseQueryEngine:
     """
     Create a query engine with hybrid retrieval and re-ranking.
 
@@ -183,7 +184,7 @@ def create_query_engine_with_reranking(
         top_n: Number of results after re-ranking
 
     Returns:
-        QueryEngine with full pipeline
+        BaseQueryEngine with full pipeline
     """
     logger.info("Creating query engine with hybrid retrieval and re-ranking")
 
